@@ -44,52 +44,55 @@ We will optimize the availability of our service and avoid the problems found in
     ```
 
 3. Isolate data or services of different tenants.
-   - Deploy a separate vmagent for each tenant, these vmagents may be on different VPCs or even different clouds in production environment.
+   - Deploy a separate vmagent for each tenant, these vmagents may be on different VPCs or even different clouds in production environment.  Checkout the yaml:
+     ```
+     metadata:
+     name: vmagent-1
+     namespace: observability
+     ```
+   
+   - Each tenant's vmagent writes data to its own space.  Checkout the yaml:
+     ```
+     - url: "http://vminsert-vmcluster.observability.svc.cluster.local:8480/insert/1/prometheus/api/v1/write"
+     ```
+   - Apply
     ```
-    metadata:
-    name: vmagent-1
-    namespace: observability
+    $ kubectl apply -f 4-optimize-observability-service/4-3-multi-tenant-isolation/vmagent-tenant-1.yaml
+    $ kubectl apply -f 4-optimize-observability-service/4-3-multi-tenant-isolation/vmagent-tenant-2.yaml
+   
+    # Let's confirm that vmcluster collects data from different tenants
+   
+    $ kubectl port-forward svc/vmselect-vmcluster 8481:8481 
+   
+    #  http://127.0.0.1:8481/select/1/vmui/?#/cardinality
+    #  http://127.0.0.1:8481/select/2/vmui/?#/cardinality
     ```
-   
-   - Each tenant's vmagent writes data to its own space.
-   ```
-    - url: "http://vminsert-vmcluster.observability.svc.cluster.local:8480/insert/1/prometheus/api/v1/write"
-   ```
-   - apply
-   ```
-   $ kubectl apply -f 4-optimize-observability-service/4-3-multi-tenant-isolation/vmagent-tenant-1.yaml
-   $ kubectl apply -f 4-optimize-observability-service/4-3-multi-tenant-isolation/vmagent-tenant-2.yaml
-   
-   # Let's confirm that vmcluster collects data from different tenants
-   
-   $ kubectl port-forward svc/vmselect-vmcluster 8481:8481 
-   
-   #  http://127.0.0.1:8481/select/1/vmui/?#/cardinality
-   #  http://127.0.0.1:8481/select/2/vmui/?#/cardinality
-   ```
 
-   Deploy a separate vmalert for each tenant, they have different configurations same as vmagent.
-   ```
-   $ kubectl apply -f 4-optimize-observability-service/4-3-multi-tenant-isolation/vmalert-tenant-1.yaml
-   $ kubectl apply -f 4-optimize-observability-service/4-3-multi-tenant-isolation/vmalert-tenant-2.yaml
-   ```
+   - Deploy a separate vmalert for each tenant, they have different configurations same as vmagent.
+    ```
+    $ kubectl apply -f 4-optimize-observability-service/4-3-multi-tenant-isolation/vmalert-tenant-1.yaml
+    $ kubectl apply -f 4-optimize-observability-service/4-3-multi-tenant-isolation/vmalert-tenant-2.yaml
+    ```
 
 4. Provides disaster recovery for possible failures.
    When vmagent fails to report data due to vmcluster failure, we first store the data in the buffer of vmcluster. After the vmcluster service is restored, vmagent will make up the cached data to vmcluster to ensure that no data is lost.
    ```
    $ kubectl apply -f 4-optimize-observability-service/4-4-disaster-recovery/vmagent-tenant-1.yaml
-   
+   ```
+   ```
    # now we set the replicaCount of vminsert to 0, thus injecting a write fault
    $ kubectl apply -f 4-optimize-observability-service/4-4-disaster-recovery/vmcluster.yaml
    
-   # zzz~~zzz
+   # (-_-) zzz
    # you can sleep for three minutes.
-   # zzz~~zzz
-
+   # (-_-) zzz
+   ```
+   ```
    # After waiting 3 minutes, restore vminsert with 4-2-high-availability-deployment/vmcluster.yaml
    
    $ kubectl apply -f 4-optimize-observability-service/4-2-high-availability-deployment/vmcluster.yaml
-   
+   ```
+   ```
    # OK. Let's check the data difference between tenant-1 and tenant-2
    $ kubectl port-forward svc/vmselect-vmcluster 8481:8481 
    
