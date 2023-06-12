@@ -3,13 +3,13 @@ We will optimize the availability of our service and avoid the problems found in
 1. Use Auto Scaler to manage EC2 resources, and ensure that resources are sufficient to support business needs by setting auto scaling policies. https://aws.amazon.com/ec2/autoscaling/
 
 2. We are making the following changes to vmcluster to improve the availability of our services.
-   - Deploy multiple replicas of the same service.
+   - Deploy multiple replicas of the same service. Checkout the yaml:
      ```
        replicaCount: 2
        # This configuration will start two replicas (pods) of the vminsert service.
        # When one of the pods crashes, the other pod can still provide services
      ```
-   - Deploy multiple copies of the same service to different EC2.
+   - Deploy multiple copies of the same service to different EC2. Checkout the yaml:
        ```
        podAntiAffinity:
        #the replicas get the label app.kubernetes.io/name=vminsert.
@@ -25,13 +25,13 @@ We will optimize the availability of our service and avoid the problems found in
          topologyKey: kubernetes.io/hostname
          weight: 100     
        ```
-   - Enable the data multi-copy mode in the service.
+   - Enable the data multi-copy mode in the service. Checkout the yaml:
        ```
        replicationFactor: 2
        #replicationFactor instructs vminsert to store N copies for every ingested sample on N distinct vmstorage nodes.
        #This guarantees that all the stored data remains available for querying if up to N-1 vmstorage nodes are unavailable.
        ```
-   - Add more resources to the service.
+   - Add more resources to the service. Checkout the yaml:
        ```
        requests:
          cpu: "0.2"
