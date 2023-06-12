@@ -13,8 +13,9 @@ In this Lab, we will deploy a complete set of monitoring and alert services, and
 
 ## Learning Objectives
 
-- Understand the definition of availability
-- 
+- Learn the definition and measurement of availability
+- Learn how to think about service availability
+- Learn some best practices about high availability
 
 ## Pre-requisites
 Lab3 has the same prerequisites as lab1. it will speed up the progress of lab3 if you have completed lab1.

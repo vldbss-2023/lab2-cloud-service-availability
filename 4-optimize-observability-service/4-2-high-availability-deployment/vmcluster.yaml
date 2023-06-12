@@ -32,10 +32,10 @@ spec:
     # When one of the pods crashes, the other pod can still provide services
     resources:
       requests:
-        cpu: "0.05"
+        cpu: "0.2"
         memory: 64Mi
       limits:
-        cpu: "0.2"
+        cpu: "0.5"
         memory: 256Mi
   vmselect:
     affinity:
@@ -58,7 +58,7 @@ spec:
     replicaCount: 2
     resources:
       requests:
-        cpu: "0.05"
+        cpu: "0.2"
         memory: 64Mi
       limits:
         cpu: "0.2"
@@ -91,8 +91,8 @@ spec:
     replicaCount: 2
     resources:
       requests:
-        cpu: "0.02"
-        memory: 256Mi
+        cpu: "0.2"
+        memory: 64Mi
       limits:
         cpu: "0.2"
         memory: 512Mi

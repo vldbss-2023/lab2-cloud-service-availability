@@ -32,7 +32,7 @@ spec:
     # When one of the pods crashes, the other pod can still provide services
     resources:
       requests:
-        cpu: "0.05"
+        cpu: "0.2"
         memory: 64Mi
       limits:
         cpu: "0.2"
@@ -58,7 +58,7 @@ spec:
     replicaCount: 2
     resources:
       requests:
-        cpu: "0.05"
+        cpu: "0.2"
         memory: 64Mi
       limits:
         cpu: "0.2"
@@ -92,7 +92,7 @@ spec:
     replicaCount: 2
     resources:
       requests:
-        cpu: "0.02"
+        cpu: "0.2"
         memory: 256Mi
       limits:
         cpu: "0.2"

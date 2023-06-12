@@ -31,6 +31,11 @@ We will optimize the availability of our service and avoid the problems found in
        #replicationFactor instructs vminsert to store N copies for every ingested sample on N distinct vmstorage nodes.
        #This guarantees that all the stored data remains available for querying if up to N-1 vmstorage nodes are unavailable.
        ```
+   - Add more resources to the service.
+       ```
+       requests:
+         cpu: "0.2"
+       ```
 
    Update the yaml of vmcluster:
     ```
@@ -77,8 +82,11 @@ We will optimize the availability of our service and avoid the problems found in
    # now we set the replicaCount of vminsert to 0, thus injecting a write fault
    $ kubectl apply -f 4-optimize-observability-service/4-4-disaster-recovery/vmcluster.yaml
    
-   # wait...
-   # After waiting 3 minutes, restore vminsert.
+   # zzz~~zzz
+   # you can sleep for three minutes.
+   # zzz~~zzz
+
+   # After waiting 3 minutes, restore vminsert with 4-2-high-availability-deployment/vmcluster.yaml
    
    $ kubectl apply -f 4-optimize-observability-service/4-2-high-availability-deployment/vmcluster.yaml
    
