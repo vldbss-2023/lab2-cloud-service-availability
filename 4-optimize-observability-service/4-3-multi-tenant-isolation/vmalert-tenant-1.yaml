@@ -1,27 +1,31 @@
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAlert
 metadata:
-  name: default-vmalert-1
+  name: vmalert-tenant-1
   namespace: observability
+  labels:
+    tenant: tenant-1
 spec:
   containers:
-  - name: config-reloader
-    resources:
-      limits:
-        cpu: 10m
-      requests:
-        cpu: 10m
+    - name: config-reloader
+      resources:
+        limits:
+          cpu: 10m
+        requests:
+          cpu: 10m
   datasource:
-    url: http://vmselect-vmcluster.observability.svc.cluster.local:8481/select/1:0/prometheus
+    url: http://vmselect-vmcluster.observability.svc.cluster.local:8481/select/1/prometheus
+  notifier:
+    url: http://vmalertmanager-default-alertmanager.observability.svc:9093
   image: {}
   livenessProbe:
     initialDelaySeconds: 30
   readinessProbe:
     initialDelaySeconds: 30
   remoteRead:
-    url: http://vmselect-vmcluster.observability.svc.cluster.local:8481/select/1:0/prometheus
+    url: http://vmselect-vmcluster.observability.svc.cluster.local:8481/select/1/prometheus
   remoteWrite:
-    url: http://vminsert-vmcluster.observability.svc.cluster.local:8480/insert/1:0/prometheus
+    url: http://vminsert-vmcluster.observability.svc.cluster.local:8480/insert/1/prometheus
   resources:
     limits:
       cpu: 30m
@@ -29,10 +33,6 @@ spec:
     requests:
       cpu: 10m
       memory: 50Mi
-  ruleNamespaceSelector:
-    matchLabels:
-      observability.pingcap.com/tenantID: observability
   ruleSelector:
     matchLabels:
-      observability.pingcap.com/tenantID: observability
-  serviceAccountName: observability
+      tenant: observability

@@ -27,7 +27,7 @@ spec:
     podMetadata:
       labels:
         owner: infra
-    replicaCount: 2
+    replicaCount: 0
     # This configuration will start two replicas (pods) of the vminsert service.
     # When one of the pods crashes, the other pod can still provide services
     resources:
@@ -71,6 +71,7 @@ spec:
             requests:
               storage: 1Gi
         status: {}
+
   vmstorage:
     affinity:
       podAntiAffinity:

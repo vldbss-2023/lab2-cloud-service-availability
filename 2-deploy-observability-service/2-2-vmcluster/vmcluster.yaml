@@ -1,10 +1,19 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: observability
+  labels:
+    tenant: observability
+---
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMCluster
 metadata:
   name: vmcluster
-  namespace: vldb
+  namespace: observability
 spec:
   replicationFactor: 1
+  retentionPeriod: "1"
   vminsert:
     image: {}
     podMetadata:

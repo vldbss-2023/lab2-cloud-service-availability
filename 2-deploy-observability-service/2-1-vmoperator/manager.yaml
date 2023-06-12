@@ -34,18 +34,14 @@ spec:
         env:
         - name: WATCH_NAMESPACE
           value: ""
-        - name: VM_ENABLEDPROMETHEUSCONVERTEROWNERREFERENCES
-          value: "true"
-        image: victoriametrics/operator:v0.29.0
+        image: victoriametrics/operator:v0.34.1
         name: manager
         resources:
           limits:
-            cpu: 400m
-            memory: 2Gi
+            cpu: 120m
+            memory: 520Mi
           requests:
             cpu: 80m
-            memory: 256Mi
+            memory: 120Mi
       serviceAccountName: vm-operator
-      nodeSelector:
-        node_type: worker
       terminationGracePeriodSeconds: 10
