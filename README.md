@@ -1,4 +1,4 @@
-# lab2-cloud-service-availability
+# lab3-cloud-service-availability
 In this Lab, we will deploy a complete set of monitoring and alert services, and use a series of methods to improve the availability of services
 
 ## Introduction
