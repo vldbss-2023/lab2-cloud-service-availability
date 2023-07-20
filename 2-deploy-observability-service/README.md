@@ -24,13 +24,17 @@ all our service is running on EC2.
 # Operations
 1. Deploy vmoperator.
     ```bash
-    $ kubectl apply -f 2-deploy-observability-service/2-1-vmoperator/crd.yaml
-    $ kubectl apply -f 2-deploy-observability-service/2-1-vmoperator/rbac.yaml
-    $ kubectl apply -f 2-deploy-observability-service/2-1-vmoperator/manager.yaml
+    # cd ../2-deploy-observability-service
+    $ kubectl apply -f 2-1-vmoperator/crd.yaml
+    $ kubectl apply -f 2-1-vmoperator/rbac.yaml
+    $ kubectl apply -f 2-1-vmoperator/manager.yaml
+    $ kubectl get pod -n monitoring-system
+    NAME                           READY   STATUS    RESTARTS   AGE
+    vm-operator-848db5c8b4-fjm2w   1/1     Running   0          45s
     ```
 2. Deploy vmcluster to provide metrics read and write services.
     ```bash
-    $ kubectl apply -f 2-deploy-observability-service/2-2-vmcluster/vmcluster.yaml
+    $ kubectl apply -f 2-2-vmcluster/vmcluster.yaml
     $ kubectl get pod -n observability
     NAME                                  READY   STATUS    RESTARTS   AGE
     vminsert-vmcluster-7c78fc7bd8-rmjpj   1/1     Running   0          2m9s
@@ -39,9 +43,16 @@ all our service is running on EC2.
     ```
 3. Deploy vmagent with monitoring metrics.
     ```bash
-    $ kubectl apply -f 2-deploy-observability-service/2-3-vmagent/exporter.yaml
-    $ kubectl apply -f 2-deploy-observability-service/2-3-vmagent/scrapes.yaml
-    $ kubectl apply -f 2-deploy-observability-service/2-3-vmagent/vmagent.yaml
+    $ kubectl apply -f 2-3-vmagent/exporter.yaml
+    $ kubectl apply -f 2-3-vmagent/scrapes.yaml
+    $ kubectl apply -f 2-3-vmagent/vmagent.yaml
+    $ kubectl get pod -n observability
+    node-exporter-552qv                      1/1     Running   0          35s
+    node-exporter-mnwsk                      1/1     Running   0          35s
+    vmagent-default-vmagent-f4c75dc7-n2bpb   2/2     Running   0          22s
+    vminsert-vmcluster-7c78fc7bd8-9f2k5      1/1     Running   0          4m27s
+    vmselect-vmcluster-0                     1/1     Running   0          4m28s
+    vmstorage-vmcluster-0                    1/1     Running   0          4m28s
    
     # View the metrics we collected 
     $ kubectl port-forward svc/vmselect-vmcluster -n observability 8481:8481
@@ -53,9 +64,9 @@ all our service is running on EC2.
     ```
 4. Deploy vmalert with alert rules.
     ```bash
-    $ kubectl apply -f 2-deploy-observability-service/2-4-vmalert/rule.yaml
-    $ kubectl apply -f 2-deploy-observability-service/2-4-vmalert/alertmanager.yaml
-    $ kubectl apply -f 2-deploy-observability-service/2-4-vmalert/vmalert.yaml
+    $ kubectl apply -f 2-4-vmalert/rule.yaml
+    $ kubectl apply -f 2-4-vmalert/alertmanager.yaml
+    $ kubectl apply -f 2-4-vmalert/vmalert.yaml
     
     # View the alerts
     $ kubectl port-forward svc/vmalertmanager-default-alertmanager 9093:9093

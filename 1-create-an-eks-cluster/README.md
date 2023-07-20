@@ -49,10 +49,8 @@ If you have already installed the AWS CLI and Pulumi, you can skip the correspon
     4. Select the `default` stack
 
        ```bash
-       $ pulumi stack init
-       ``
-       ```bash
-       $ pulumi stack select default
+       $ cd 1-create-an-eks-cluster
+       $ pulumi stack select default -c
        ```
 
 3. Create the EKS cluster via Pulumi (may take more than **_10_** minutes)
@@ -65,6 +63,10 @@ If you have already installed the AWS CLI and Pulumi, you can skip the correspon
     +   pulumi:pulumi:Stack        1-create-an-eks-cluster-default created
     +   └─ eks:index:Cluster       my-eks                          created
         ... dozens of resources omitted ...
+     
+    Do you want to perform this update?  [Use arrows to move, type to filter] 
+    > yes
+      no
     ```
 
 4. Interact with the newly created EKS cluster

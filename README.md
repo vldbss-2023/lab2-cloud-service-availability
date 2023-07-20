@@ -33,14 +33,14 @@ Lab2 has the same prerequisites as lab1. it will speed up the progress of lab2 i
 
 1. Create a new GitHub repository base on [this template](https://github.com/vldbss-2023/lab2-cloud-service-availability)
    * Clone the newly created repository
-   * In the root directory of the repository, run `make install` to install the dependencies
-2. (20 min) Create an EKS cluster [`1-create-an-eks-cluster`](./1-create-an-eks-cluster/README.md)
-3. (30 min) Deploy observability service
+   * In the root directory of the repository, run `make install` to install the dependencies. 
+2. (30 min) Create an EKS cluster [`1-create-an-eks-cluster`](./1-create-an-eks-cluster/README.md)
+3. (20 min) Deploy observability service
    Operator [`2-deploy-observability-service`](./2-deploy-observability-service/README.md)
-4. (30 min) Find out issues about availability[`3-find-out-issues-aboud-availability`](./3-find-out-issues-aboud-availability/README.md)
-5. (40 min) Optimize observability service
+4. (50 min) Solve avalibility-related issues[`3-solve-avalibility-related-issues`](./3-solve-avalibility-related-issues/README.md)
+5. (20 min) Optimize observability service
    Operator [`4-optimize-observability-service`](./4-optimize-observability-service/README.md)
-6. Bonus: For the questions in the third step, is there any better solution?
+6. Bonus: Deploy a TiDB cluster and monitor it. 
 
 ---
 
