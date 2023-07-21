@@ -4,7 +4,6 @@ The set of services we will deploy will also be the subject of the next step.
 # Background knowledge
 
 If you know all these components, please skip this part and start the following operations directly.
-![img.png](img.png)
 
 all our service is running on EC2.
 
