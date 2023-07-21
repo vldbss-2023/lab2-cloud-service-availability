@@ -1,11 +1,11 @@
 # lab2-cloud-service-availability
-In this Lab, we will deploy a complete set of monitoring and alert services, and use a series of methods to improve the availability of services
+In this Lab, we will deploy a set of monitoring and alert services, then optimize the service through the high availability method we learned
 
 ## Introduction
 
 > What is availability?
 
-> How to Measure Availability?
+> How to measure availability?
 
 > What are the common factors that affect the availability of services, and how to solve these problems.
 
@@ -37,7 +37,7 @@ Lab2 has the same prerequisites as lab1. it will speed up the progress of lab2 i
 2. (30 min) Create an EKS cluster [`1-create-an-eks-cluster`](./1-create-an-eks-cluster/README.md)
 3. (20 min) Deploy observability service
    Operator [`2-deploy-observability-service`](./2-deploy-observability-service/README.md)
-4. (50 min) Solve avalibility-related issues[`3-solve-avalibility-related-issues`](./3-solve-avalibility-related-issues/README.md)
+4. (50 min) Solve availability-related issues[`3-solve-availability-related-issues`](./3-solve-availability-related-issues/README.md)
 5. (20 min) Optimize observability service
    Operator [`4-optimize-observability-service`](./4-optimize-observability-service/README.md)
 6. Bonus: Deploy a TiDB cluster and monitor it. 
@@ -56,10 +56,6 @@ Total **_0.1928_** USD per hour.
 
 ## Criteria for judging
 The fourth step of our lab will be hidden first, and students' thinking about the problems in the third step will be the focus of judgment
-1. Complete the deployment operations in 1-create-an-eks-cluster and 2-deploy-observation-service. (0-20)
-2. For each question in 3-find-out-issues-about-availability, 0-10 points can be obtained if only the text description is provided, and 0-15 points can be obtained if the code is directly modified.
-   * 2.1 Text answer: Use AutoScaler of EC2. Code answer:
-   * 2.2 Text answer: a.deploy multiple replicas for vmstorage; b. Deploy multiple replicas to different EC2. Code answer: a. `replicaCount: 2` b. `podAntiAffinity`
-   * 2.3 Text answer: Deploy different services for different tenants, or isolate data and requests through tenants in a service. Code answer: `/select/1/prometheus` or deploy multiple vmalerts
-   * 2.4 Text answer: Add a caching mechanism on the vmagent side, or establish another data link. Code answer: `statefulStorage`.
-3. Complete the deployment operation in 4-optimization-observation-service. (0-20)
+1. Complete the deployment operations in 1-create-an-eks-cluster and 2-deploy-observability-service. (0-20)
+2. For each question in 3-solve-availability-related-issues, 0-10 points can be obtained if only the text description is provided, and 0-15 points can be obtained if the code is directly modified.
+3.Answers to the questions are given in 4-operation and the practical work is done. (0-20)
