@@ -91,7 +91,7 @@ We will answer the questions in 3-solve-availability-related-issues and improve 
     #  http://127.0.0.1:8481/select/2/vmui/?#/cardinality
     ```
 
-   - Let's a dedicated VMAlert for each tenant, they have different configurations same as vmagent.
+   - Let's deploy a dedicated VMAlert for each tenant, they have different configurations same as vmagent.
     ```
     $ kubectl apply -f 4-3-multi-tenant-isolation/vmalert-tenant-1.yaml
     $ kubectl apply -f 4-3-multi-tenant-isolation/vmalert-tenant-2.yaml
