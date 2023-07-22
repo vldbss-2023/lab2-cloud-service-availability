@@ -1,0 +1,12 @@
+1. 删除 2-deploy-observability-service/2-4-vmalert/rule.yaml 中 record 相关的两行
+
+      - record: instance:node_cpus:count
+        expr: count(node_cpu_seconds_total{mode="idle"}) without (cpu,mode)
+
+2. 重新 apply 文件
+kubectl apply -f 2-4-vmalert/rule.yaml
+
+3. 删除 vmalert 的 pod
+kubectl delete pod vmalert-xxxx -n observability
+
+具体的 vmalert-xxxx 可以用 kubectl get pod -n observability 看到 3 个 vmalert 
